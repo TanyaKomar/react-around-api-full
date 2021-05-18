@@ -1,0 +1,15 @@
+@import url(./__image/card__image.css);
+@import url(./__place/card__place.css);
+@import url(./__title/card__title.css);
+@import url(./__like-container/card__like-container.css);
+@import url(./__btn-like/card__btn-like.css);
+@import url(./__btn-like/_active/card__btn-like_active.css);
+@import url(./__like-counter/card__like-counter.css);
+@import url(./__btn-delete/card__btn-delete.css);
+@import url(./__btn-delete/_hidden/card__btn-delete_hidden.css);
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  position: relative;
+}

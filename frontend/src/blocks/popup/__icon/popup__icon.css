@@ -1,0 +1,6 @@
+.popup__icon {
+  width: 120px;
+  height: 120px;
+  background: url(../../../images/checkmark.svg) center no-repeat;
+  margin-bottom: 32px;
+}

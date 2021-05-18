@@ -1,0 +1,15 @@
+@import url(./__title/signin__title.css);
+@import url(./__form/signin__form.css);
+@import url(./__input/sigin__input.css);
+@import url(./__button/signin__button.css);
+@import url(./__message/signin__message.css);
+@import url(./__link/signin__link.css);
+
+.signin {
+    max-width: 880px;
+    background-color: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+}

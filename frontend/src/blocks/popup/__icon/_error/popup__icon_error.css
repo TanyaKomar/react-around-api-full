@@ -1,0 +1,6 @@
+.popup__icon_error {
+  width: 120px;
+  height: 120px;
+  background: url(../../../../images/crossmark.svg) center no-repeat;
+  margin-bottom: 32px;
+}
