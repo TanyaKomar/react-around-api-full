@@ -1,0 +1,6 @@
+{
+  "*.js":"./node_modules/prettier/bin-prettier.js  --print-width 120 --write",
+  "*.jsx":"./node_modules/prettier/bin-prettier.js  --print-width 120 --write",
+  "*.css":"./node_modules/prettier/bin-prettier.js  --print-width 120 --write",
+  "*.md":"./node_modules/prettier/bin-prettier.js  --print-width 120 --write"
+}

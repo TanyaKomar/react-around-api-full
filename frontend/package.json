@@ -1,5 +1,5 @@
 {
-  "name": "around-react",
+  "name": "frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -45,7 +45,7 @@
   "devDependencies": {
     "eslint": "^7.25.0",
     "husky": "^4.3.8",
-    "jest": "^26.6.3",
+    "jest": "26.6.0",
     "lint-staged": "^10.5.4",
     "prettier": "2.2.1"
   },
