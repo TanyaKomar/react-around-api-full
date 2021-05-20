@@ -2,7 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 
-const { PORT = 3001 } = process.env;
+const { PORT = 3000 } = process.env;
 const mongoose = require('mongoose');
 console.log(process.cwd());
 const users = require('./routes/users');
