@@ -1,5 +1,5 @@
 {
-  "name": "frontend",
+  "name": "around-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -9,7 +9,7 @@
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
+    "react-scripts": "^4",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
@@ -22,7 +22,8 @@
     "lint": "./node_modules/eslint/bin/eslint.js --debug src/",
     "prettier": "./node_modules/prettier/bin-prettier.js --write \"src/**/*.js\"",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy:old": "gh-pages -d build",
+    "deploy": "npm run build && scp -r ./build/* tatiana23komar@34.69.117.154:/home/tatiana23komar/react-around-api-full/frontend" 
   },
   "eslintConfig": {
     "extends": [
@@ -45,7 +46,7 @@
   "devDependencies": {
     "eslint": "^7.25.0",
     "husky": "^4.3.8",
-    "jest": "26.6.0",
+    "jest": "26.6.3",
     "lint-staged": "^10.5.4",
     "prettier": "2.2.1"
   },
