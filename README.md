@@ -1,7 +1,7 @@
 # react-around-api-full
 
 The server's public IP address is 34.69.117.154.
-The domain name is tanyakomar.
+The domain name is tanyakomar.students.nomoreparties.site/.
 
 The API of "Around the U.S." with authorization and registration handled by the back-end server.
 

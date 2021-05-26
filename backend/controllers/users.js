@@ -3,6 +3,7 @@ const User = require('../models/user');
 const jwt = require('jsonwebtoken');
 const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getUsers = (req, res, next) => {
   User.find({})
@@ -10,18 +11,15 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.getUser = (req, res) => {
+module.exports.getUser = (req, res, next) => {
   User.findOne({user})
-    .then((user) => res.send({ data: user }))
-    .catch((err) => {
-      if (err.name === 'ValidationError') {
-        res.status(400).send({ message: 'Validation failed:  user cannot be found.' });
-      } else if (err.name === 'CastError') {
-        res.status(400).send({ message: 'User not found.' });
-      } else {
-        res.status(500).send({ message: 'Server error' });
+    .then((user) => {
+      if(!user) {
+        throw new NotFoundError('User not found.')
       }
-    });
+      return res.send({ data: user })
+    })
+    .catch(next);
 };
 
 module.exports.getUserById = (req, res, next) => {
@@ -80,7 +78,7 @@ module.exports.updateAvatar = (req, res) => {
     .catch(next);
 };
 
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   return User.findUserByCredentials(email, password)
@@ -88,8 +86,9 @@ module.exports.login = (req, res) => {
       if(!user) {
         throw new UnauthorizedError('Incorrect email or password');
       }
-      const token = jwt.sign({ _id: user._id}, 'tkay', {expiresIn: '7d'});
+      const token = jwt.sign({ _id: user._id},
+        NODE_ENV === 'production' ? JWT_SECRET : 'tkey', {expiresIn: '7d'});
       res.send({token});
     })
     .catch(next);
-}; 
+};

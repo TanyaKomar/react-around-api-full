@@ -2,6 +2,7 @@ const Card = require('../models/card');
 const NotFoundError = require('../errors/not-found-err');
 const BadRequestError = require('../errors/bad-request-err');
 const UnauthorizedError = require('../errors/unauthorized-err');
+const ForbiddenError = require('../errors/forbidden-err');
 
 module.exports.getCards = (req, res) => {
   Card.find({})
@@ -18,14 +19,17 @@ module.exports.createCard = (req, res) => {
     .catch((err) => {
       if (err.name === 'ValidationError') {
         throw new BadRequestError('Validation failed: card cannot be created.');
-      } 
+      }
     })
     .catch(next);
 };
 
-module.exports.deleteCardById = (req, res) => {
+module.exports.deleteCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
+      if(card && req.user._id.toString() !== card.owner.toString()) {
+        throw new ForbiddenError('You can only delete your own cards.');
+      }
       if (card) {
         res.send({ data: card });
       } else if (!card) {
@@ -70,5 +74,5 @@ module.exports.dislikeCard = (req, res) => {
     res.send({ data: card });
   })
   .catch(next);
-    
+
 };
