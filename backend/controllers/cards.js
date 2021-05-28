@@ -4,13 +4,13 @@ const BadRequestError = require('../errors/bad-request-err');
 const UnauthorizedError = require('../errors/unauthorized-err');
 const ForbiddenError = require('../errors/forbidden-err');
 
-module.exports.getCards = (req, res) => {
+module.exports.getCards = (req, res, next) => {
   Card.find({})
     .then((card) => res.send({ data: card }))
     .catch(next);
 };
 
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
   Card.create({
     name, link, owner: req.user._id, likes: [],
@@ -27,7 +27,7 @@ module.exports.createCard = (req, res) => {
 module.exports.deleteCardById = (req, res, next) => {
   Card.findByIdAndRemove(req.params.cardId)
     .then((card) => {
-      if(card && req.user._id.toString() !== card.owner.toString()) {
+      if (card && req.user._id.toString() !== card.owner.toString()) {
         throw new ForbiddenError('You can only delete your own cards.');
       }
       if (card) {
@@ -46,12 +46,12 @@ module.exports.deleteCardById = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
     { new: true },
-    )
+  )
     .then((card) => {
       if (!card) {
         throw new NotFoundError('Card not found.');
@@ -61,18 +61,17 @@ module.exports.likeCard = (req, res) => {
     .catch(next);
 };
 
-module.exports.dislikeCard = (req, res) => {
+module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
     { new: true },
   )
-  .then((card) => {
-    if (!card) {
-      throw new NotFoundError('Card not found.');
-    }
-    res.send({ data: card });
-  })
-  .catch(next);
-
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Card not found.');
+      }
+      res.send({ data: card });
+    })
+    .catch(next);
 };

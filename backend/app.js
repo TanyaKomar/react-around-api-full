@@ -6,18 +6,19 @@ const bodyParser = require('body-parser');
 const helmet = require('helmet');
 
 const { PORT = 3000, MONGODB_URI, NODE_ENV } = process.env;
+const { celebrate, errors } = require('celebrate');
+const Joi = require('joi');
+const rateLimit = require('express-rate-limit');
 const NotFoundError = require('./errors/not-found-err');
 const users = require('./routes/users');
 const cards = require('./routes/cards');
 
 const { createUser, login } = require('./controllers/users');
 const auth = require('./middleware/auth');
-const { celebrate, errors } = require('celebrate');
-const Joi = require('joi');
-const rateLimit = require('express-rate-limit');
+
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 100
+  max: 100,
 });
 
 const app = express();
@@ -54,7 +55,7 @@ app.post('/signup', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(8),
-  })
+  }),
 }), createUser);
 
 app.use(auth);
