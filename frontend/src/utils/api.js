@@ -1,3 +1,6 @@
+// const BASE_URL = "https://api.tanyakomar.students.nomoreparties.site";
+export const BASE_URL = "http://localhost:3000";
+
 class Api {
   constructor({ baseUrl, headers }) {
     this._baseUrl = baseUrl;
@@ -79,9 +82,7 @@ class Api {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({ name: name, about: about }),
-    }).then((res) => {
-      return res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`);
-    });
+    }).then((res) => (res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)));
   }
 
   setUserAvatar({ avatar }, token) {
@@ -97,7 +98,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://api.tanyakomar.students.nomoreparties.site",
+  baseUrl: BASE_URL,
 });
 
 export default api;

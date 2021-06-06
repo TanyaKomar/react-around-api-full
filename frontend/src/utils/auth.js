@@ -1,5 +1,6 @@
-const BASE_URL = "https://api.tanyakomar.students.nomoreparties.site";
-
+// import BASE_URL  from "./api";
+// const BASE_URL = "https://api.tanyakomar.students.nomoreparties.site";
+export const BASE_URL = "http://localhost:3000";
 export const register = (email, password) => {
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
