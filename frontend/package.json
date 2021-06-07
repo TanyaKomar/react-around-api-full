@@ -23,7 +23,7 @@
     "prettier": "./node_modules/prettier/bin-prettier.js --write \"src/**/*.js\"",
     "predeploy": "npm run build",
     "deploy:old": "gh-pages -d build",
-    "deploy": "npm run build && scp -r ./build/* tatiana23komar@34.69.117.154:/home/tatiana23komar/react-around-api-full/frontend" 
+    "deploy": "npm run build && scp -r ./build/* tatiana23komar@34.69.117.154:/home/tatiana23komar/react-around-api-full/frontend"
   },
   "eslintConfig": {
     "extends": [
