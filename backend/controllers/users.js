@@ -14,19 +14,10 @@ module.exports.getUsers = (req, res, next) => {
     .catch(next);
 };
 
-module.exports.getUser = (req, res, next) => {
-  User.findOne({})
-    .then((user) => {
-      if (!user) {
-        throw new NotFoundError('User not found.');
-      }
-      return res.send({ data: user });
-    })
-    .catch(next);
-};
 
 module.exports.getUserById = (req, res, next) => {
-  User.findById(req.params.id)
+  const userId = req.params.id ==='me'? req.user._id: req.params.id;
+  User.findById(userId)
     .then((user) => {
       if (!user) {
         throw new NotFoundError('User not found.');

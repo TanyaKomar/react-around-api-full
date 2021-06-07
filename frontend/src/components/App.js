@@ -32,6 +32,7 @@ function App() {
   const [iconClass, setIconClass] = React.useState("");
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = React.useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  // const [token, setToken] = React.useState(localStorage.getItem("token"));
   const history = useHistory();
 
   function handleEditAvatarClick() {
@@ -109,7 +110,7 @@ function App() {
     api
       .getCardList()
       .then((cards) => {
-        setCards(cards);
+        setCards(cards.data);
       })
       .catch((error) => {
         console.error(error);
@@ -127,10 +128,10 @@ function App() {
   }
 
   function tokenCheck() {
-    const jwt = localStorage.getItem("token");
-    if (jwt) {
+    const token = localStorage.getItem("token");
+    if (token) {
       auth
-        .getContent(jwt)
+        .getContent(token)
         .then((res) => {
           setUserEmail(res.data.email);
           setLoggedIn(true);
@@ -184,6 +185,8 @@ function App() {
       })
       .then((data) => {
         if (data.token) {
+          localStorage.setItem("token", data.token);
+          // setToken(data.token);
           history.push("/around");
         } else {
           setTitle("Oops, something went wrong! Please try again.");

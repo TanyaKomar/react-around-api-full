@@ -7,7 +7,7 @@ class Api {
     this._headers = headers;
   }
 
-  getCardList(token) {
+  getCardList(token = localStorage.getItem("token")) {
     return fetch(this._baseUrl + "/cards", {
       headers: {
         "Content-Type": "application/json",
@@ -16,7 +16,7 @@ class Api {
     }).then((res) => (res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)));
   }
 
-  getUserInfo(token) {
+  getUserInfo(token = localStorage.getItem("token")) {
     return fetch(this._baseUrl + "/users/me", {
       headers: {
         "Content-Type": "application/json",
@@ -25,11 +25,11 @@ class Api {
     }).then((res) => (res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)));
   }
 
-  getInitialData() {
-    return Promise.all([this.getCardList(), this.getUserInfo()]);
+  getInitialData(token = localStorage.getItem("token")) {
+    return Promise.all([this.getCardList(token), this.getUserInfo(token)]);
   }
 
-  addCard({ name, link }, token) {
+  addCard({ name, link }, token = localStorage.getItem("token")) {
     return fetch(this._baseUrl + "/cards", {
       method: "POST",
       headers: {
@@ -40,7 +40,7 @@ class Api {
     }).then((res) => (res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)));
   }
 
-  removeCard(cardID, token) {
+  removeCard(cardID, token = localStorage.getItem("token")) {
     return fetch(this._baseUrl + `/cards/${cardID}`, {
       method: "DELETE",
       headers: {
@@ -50,7 +50,7 @@ class Api {
     }).then((res) => (res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)));
   }
 
-  addLike(cardID, token) {
+  addLike(cardID, token = localStorage.getItem("token")) {
     return fetch(this._baseUrl + `/cards/likes/${cardID}`, {
       method: "PUT",
       headers: {
@@ -60,7 +60,7 @@ class Api {
     }).then((res) => (res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)));
   }
 
-  removeLike(cardID, token) {
+  removeLike(cardID, token = localStorage.getItem("token")) {
     return fetch(this._baseUrl + `/cards/likes/${cardID}`, {
       method: "DELETE",
       headers: {
@@ -74,7 +74,7 @@ class Api {
     return isLiked ? this.addLike(cardID) : this.removeLike(cardID);
   }
 
-  setUserInfo({ name, about }, token) {
+  setUserInfo({ name, about }, token = localStorage.getItem("token")) {
     return fetch(this._baseUrl + "/users/me", {
       method: "PATCH",
       headers: {
@@ -85,7 +85,7 @@ class Api {
     }).then((res) => (res.ok ? res.json() : Promise.reject(`${res.status} ${res.statusText}`)));
   }
 
-  setUserAvatar({ avatar }, token) {
+  setUserAvatar({ avatar }, token = localStorage.getItem("token")) {
     return fetch(this._baseUrl + "/users/me/avatar", {
       method: "PATCH",
       headers: {
