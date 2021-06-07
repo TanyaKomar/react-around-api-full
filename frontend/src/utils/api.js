@@ -1,5 +1,5 @@
-// const BASE_URL = "https://api.tanyakomar.students.nomoreparties.site";
-export const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://api.tanyakomar.students.nomoreparties.site";
+//const BASE_URL = "http://localhost:3000";
 
 class Api {
   constructor({ baseUrl, headers }) {
