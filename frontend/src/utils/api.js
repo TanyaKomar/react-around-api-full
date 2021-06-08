@@ -1,5 +1,5 @@
 const BASE_URL = "https://api.tanyakomar.students.nomoreparties.site";
-//const BASE_URL = "http://localhost:3000";
+// const BASE_URL = "http://localhost:3000";
 
 class Api {
   constructor({ baseUrl, headers }) {
@@ -51,7 +51,7 @@ class Api {
   }
 
   addLike(cardID, token = localStorage.getItem("token")) {
-    return fetch(this._baseUrl + `/cards/likes/${cardID}`, {
+    return fetch(this._baseUrl + `/cards/${cardID}/likes`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -61,7 +61,7 @@ class Api {
   }
 
   removeLike(cardID, token = localStorage.getItem("token")) {
-    return fetch(this._baseUrl + `/cards/likes/${cardID}`, {
+    return fetch(this._baseUrl + `/cards/${cardID}/likes`, {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
